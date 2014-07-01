@@ -14,7 +14,7 @@ Simple, asynchronous Loggly log4net appender. Find the NuGet package [here](http
   "logger":"Log4NetlyTesting.Program",
   "exception":{
     "message":"Attempted to divide by zero.",
-    "stackTrace":" at Log4NetlyTesting.Program.Main(String[] args) in c:\\SomePath\\Log4Netly\\Log4NetlyTesting\\Program.cs:line 19"
+    "stackTrace":" at Log4NetlyTesting.Program.Main(String[] args) in c:\\SomePath\\Log4Netly\\Log4NetlyTesting\\Program.cs:line 19",
     "innerException": {
       "message":"Inner exception message.",
       "stackTrack":" at Log4NetlyTesting.Program.Main(String[] args) in c:\\SomePath\\Log4Netly\\Log4NetlyTesting\\Program.cs:line 18
