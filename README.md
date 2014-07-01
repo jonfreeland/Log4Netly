@@ -1,7 +1,7 @@
 Log4Netly
 =========
 
-Simple, asynchronous Loggly log4net appender. Find the NuGet package [here](https://www.nuget.org/packages/Log4Netly).
+Simple, asynchronous [Loggly](https://www.loggly.com) log4net appender. Find the NuGet package [here](https://www.nuget.org/packages/Log4Netly).
 
 ```json
 {
