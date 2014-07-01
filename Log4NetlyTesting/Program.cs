@@ -14,13 +14,15 @@ namespace Log4NetlyTesting {
             ////logger.Debug("I'm not arguing that with you.");
             ////logger.Warn("Be careful!");
 
-            logger.Error("Now you've done it...", new Exception("This is my exception message.", new Exception("This is my inner exception message.")));
+            logger.Error("Have you used a computer before?", new FieldAccessException("You can't access this field.", new AggregateException("You can't aggregate this!")));
             try {
                 var hi = 1/int.Parse("0");
             } catch (Exception ex) {
-                logger.Error("Now you've done it...", ex);
+                logger.Error("I'm afraid I can't do that.", ex);
             }
             ////logger.Fatal("That's it. It's over.");
+
+            Console.ReadKey();
         }
     }
 }

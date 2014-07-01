@@ -65,10 +65,12 @@ namespace Log4Netly {
             if (exception != null) {
                 payload.exception = new ExpandoObject();
                 payload.exception.message = exception.Message;
+                payload.exception.type = exception.GetType().Name;
                 payload.exception.stackTrace = exception.StackTrace;
                 if (exception.InnerException != null) {
                     payload.exception.innerException = new ExpandoObject();
                     payload.exception.innerException.message = exception.InnerException.Message;
+                    payload.exception.innerException.type = exception.InnerException.GetType().Name;
                     payload.exception.innerException.stackTrace = exception.InnerException.StackTrace;
                 }
             }
