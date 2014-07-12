@@ -17,18 +17,4 @@
       <dependency id="Newtonsoft.Json" version="6.0.3" />
     </dependencies>
   </metadata>
-  <files>
-    <file src="bin\Release\net40\Log4Netly.dll"
-          target="lib\net40\Log4Netly.dll" />
-    <file src="bin\Release\net40\Log4Netly.pdb"
-          target="lib\net40\Log4Netly.pdb" />
-    <file src="bin\Release\net40\Log4Netly.xml"
-          target="lib\net40\Log4Netly.xml" />
-    <file src="bin\Release\net45\Log4Netly.dll"
-          target="lib\net45\Log4Netly.dll" />
-    <file src="bin\Release\net45\Log4Netly.pdb"
-          target="lib\net45\Log4Netly.pdb" />
-    <file src="bin\Release\net45\Log4Netly.xml"
-          target="lib\net45\Log4Netly.xml" />
-  </files>
 </package>
