@@ -15,9 +15,11 @@ Simple, asynchronous [Loggly](https://www.loggly.com) log4net appender. Find the
   "exception":{
     "message":"Attempted to divide by zero.",
     "stackTrace":" at Log4NetlyTesting.Program.Main(String[] args) in c:\\SomePath\\Log4Netly\\Log4NetlyTesting\\Program.cs:line 19",
+    "type":"DivideByZeroException",
     "innerException": {
       "message":"Inner exception message.",
-      "stackTrack":" at Log4NetlyTesting.Program.Main(String[] args) in c:\\SomePath\\Log4Netly\\Log4NetlyTesting\\Program.cs:line 18"
+      "stackTrack":" at Log4NetlyTesting.Program.Main(String[] args) in c:\\SomePath\\Log4Netly\\Log4NetlyTesting\\Program.cs:line 18",
+      "type":"Exception"
     }
   }
 }
