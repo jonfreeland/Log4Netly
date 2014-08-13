@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Dynamic;
+using System.Linq;
 using System.Net.Http;
+using System.Text;
 using log4net.Appender;
 using log4net.Core;
 using Newtonsoft.Json;
@@ -62,10 +64,10 @@ namespace Log4Netly {
             payload.logger = loggingEvent.LoggerName;
 
 			//If any custom properties exist, add them to the dynamic object
-			//i.e. if someone added loggingEvent.Properties["xx:myProp"] = "helloWorld"
+			//i.e. if someone added loggingEvent.Properties["xx:traceId"] = "helloWorld"
 			foreach (var key in loggingEvent.Properties.GetKeys())
 			{
-				((IDictionary<string, object>)payload)[key] = loggingEvent.Properties[key];
+				((IDictionary<string, object>)payload)[RemoveSpecialCharacters(key)] = loggingEvent.Properties[key];
 			}
 
             var exception = loggingEvent.ExceptionObject;
@@ -87,5 +89,15 @@ namespace Log4Netly {
             var payloadJson = JsonConvert.SerializeObject(payload);
             var response = client.PostAsync(url, new StringContent(payloadJson));
         }
+
+		private static string RemoveSpecialCharacters(string str)
+		{
+			var sb = new StringBuilder(str.Length);
+			foreach (var c in str.Where(c => (c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_'))
+			{
+				sb.Append(c);
+			}
+			return sb.ToString();
+		}
     }
 }
