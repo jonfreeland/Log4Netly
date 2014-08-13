@@ -61,6 +61,13 @@ namespace Log4Netly {
             payload.message = loggingEvent.RenderedMessage;
             payload.logger = loggingEvent.LoggerName;
 
+			//If any custom properties exist, add them to the dynamic object
+			//i.e. if someone added loggingEvent.Properties["xx:myProp"] = "helloWorld"
+			foreach (var key in loggingEvent.Properties.GetKeys())
+			{
+				((IDictionary<string, object>)payload)[key] = loggingEvent.Properties[key];
+			}
+
             var exception = loggingEvent.ExceptionObject;
             if (exception != null) {
                 payload.exception = new ExpandoObject();
