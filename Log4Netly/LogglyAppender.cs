@@ -63,12 +63,12 @@ namespace Log4Netly {
             payload.message = loggingEvent.RenderedMessage;
             payload.logger = loggingEvent.LoggerName;
 
-			//If any custom properties exist, add them to the dynamic object
-			//i.e. if someone added loggingEvent.Properties["xx:traceId"] = "helloWorld"
-			foreach (var key in loggingEvent.Properties.GetKeys())
-			{
-				((IDictionary<string, object>)payload)[RemoveSpecialCharacters(key)] = loggingEvent.Properties[key];
-			}
+            //If any custom properties exist, add them to the dynamic object
+            //i.e. if someone added loggingEvent.Properties["xx:traceId"] = "helloWorld"
+            foreach (var key in loggingEvent.Properties.GetKeys())
+            {
+                ((IDictionary<string, object>)payload)[RemoveSpecialCharacters(key)] = loggingEvent.Properties[key];
+            }
 
             var exception = loggingEvent.ExceptionObject;
             if (exception != null) {
@@ -90,14 +90,14 @@ namespace Log4Netly {
             var response = client.PostAsync(url, new StringContent(payloadJson));
         }
 
-		private static string RemoveSpecialCharacters(string str)
-		{
-			var sb = new StringBuilder(str.Length);
-			foreach (var c in str.Where(c => (c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_'))
-			{
-				sb.Append(c);
-			}
-			return sb.ToString();
-		}
+        private static string RemoveSpecialCharacters(string str)
+        {
+            var sb = new StringBuilder(str.Length);
+            foreach (var c in str.Where(c => (c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_'))
+            {
+                sb.Append(c);
+            }
+            return sb.ToString();
+        }
     }
 }
