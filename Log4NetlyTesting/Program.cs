@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using log4net;
+using log4net.Core;
 
 namespace Log4NetlyTesting {
     class Program {
@@ -20,7 +21,12 @@ namespace Log4NetlyTesting {
             } catch (Exception ex) {
                 logger.Error("I'm afraid I can't do that.", ex);
             }
-            ////logger.Fatal("That's it. It's over.");
+
+            var loggingEvent = new LoggingEvent(typeof(LogManager), logger.Logger.Repository, logger.Logger.Name, Level.Fatal, "Fatal properties, here.", new IndexOutOfRangeException());
+            loggingEvent.Properties["Foo"] = "Bar";
+            loggingEvent.Properties["Han"] = "Solo";
+            loggingEvent.Properties["Two Words"] = "Three words here";
+            logger.Logger.Log(loggingEvent);
 
             Console.ReadKey();
         }
