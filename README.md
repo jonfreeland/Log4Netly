@@ -12,6 +12,7 @@ Simple, asynchronous [Loggly](https://www.loggly.com) log4net appender. Find the
   "thread":"10",
   "message":"Now you've done it...",
   "logger":"Log4NetlyTesting.Program",
+  "customProperty":"Your very own LoggingEvent property!",
   "exception":{
     "message":"Attempted to divide by zero.",
     "stackTrace":" at Log4NetlyTesting.Program.Main(String[] args) in c:\\SomePath\\Log4Netly\\Log4NetlyTesting\\Program.cs:line 19",
