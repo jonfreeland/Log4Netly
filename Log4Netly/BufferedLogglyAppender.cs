@@ -18,7 +18,7 @@ namespace Log4Netly
         /// <summary>
         /// Loggly host for submitting log events.
         /// </summary>
-        public string Host { get; set; }
+        public string Endpoint { get; set; }
 
         /// <summary>
         /// Loggly customer token.
@@ -39,7 +39,7 @@ namespace Log4Netly
             var intervalInMs = IntervalInMs > 0 ? IntervalInMs : DefaultIntervalInMs;
             new TimerScheduler(intervalInMs).Execute(ProcessBufferedMessages);
 
-            _url = _endpointFactory.BuildBulkEndpoint(Host, Token, Tags);
+            _url = _endpointFactory.BuildBulkEndpoint(Endpoint, Token, Tags);
 
             base.ActivateOptions();
         }

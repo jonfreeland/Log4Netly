@@ -14,7 +14,7 @@ namespace Log4Netly
         /// <summary>
         /// Loggly host for submitting log events.
         /// </summary>
-        public string Host { get; set; }
+        public string Endpoint { get; set; }
 
         /// <summary>
         /// Loggly customer token.
@@ -30,7 +30,7 @@ namespace Log4Netly
         
         public override void ActivateOptions()
         {
-            _url = _endpointFactory.BuildSingleMessageEndpoint(Host, Token, Tags);
+            _url = _endpointFactory.BuildSingleMessageEndpoint(Endpoint, Token, Tags);
 
             base.ActivateOptions();
         }
