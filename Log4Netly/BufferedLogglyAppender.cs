@@ -41,6 +41,8 @@ namespace Log4Netly
 
             _url = _endpointFactory.BuildBulkEndpoint(Endpoint, Token, Tags);
 
+            Evaluator = new LevelEvaluator(Level.Fatal);
+
             base.ActivateOptions();
         }
 
