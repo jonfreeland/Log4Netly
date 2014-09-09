@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using log4net.Appender;
 using log4net.Core;
 
@@ -8,7 +7,7 @@ namespace Log4Netly
     public class BufferedLogglyAppender : BufferingAppenderSkeleton
     {
         private string _url;
-        private const int DefaultIntervalInMs = 1000;
+        private const int DefaultIntervalInMs = 2500;
 
         private readonly object _isCurrentlySendingLockObject = new object();
         private readonly LoggingEventSerializer _serializer = new LoggingEventSerializer();
