@@ -33,3 +33,13 @@ Simple, asynchronous [Loggly](https://www.loggly.com) log4net appender. Find the
   <tags value="tag1,tag2,tag3" /><!-- One or more tags -->
 </appender>
 ```
+or
+```xml
+<appender name="BufferedLogglyAppender" type="Log4Netly.BufferedLogglyAppender, Log4Netly">
+  <endpoint value="https://logs-01.loggly.com/"/>
+  <token value="your-loggly-token" />
+  <tags value="tag1,tag2,tag3" /><!-- One or more tags -->
+  <bufferSize value="512" />
+  <intervalInMs value="2500" />
+</appender>
+```
