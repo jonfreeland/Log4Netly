@@ -25,7 +25,7 @@ Simple, asynchronous [Loggly](https://www.loggly.com) log4net appender. Find the
   }
 }
 ```
-
+For light usage, you can use the regular appender:
 ```xml
 <appender name="LogglyAppender" type="Log4Netly.LogglyAppender, Log4Netly">
   <endpoint value="https://logs-01.loggly.com/" />
@@ -33,7 +33,7 @@ Simple, asynchronous [Loggly](https://www.loggly.com) log4net appender. Find the
   <tags value="tag1,tag2,tag3" /><!-- One or more tags -->
 </appender>
 ```
-or
+For heavy usage, to reduce the chance of TCP port exhaustion, use the buffered appender:
 ```xml
 <appender name="BufferedLogglyAppender" type="Log4Netly.BufferedLogglyAppender, Log4Netly">
   <endpoint value="https://logs-01.loggly.com/"/>
