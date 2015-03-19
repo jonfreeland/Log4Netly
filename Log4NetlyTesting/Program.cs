@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using log4net;
 using log4net.Core;
 
@@ -23,6 +24,17 @@ namespace Log4NetlyTesting {
             loggingEvent.Properties["Han"] = "Solo";
             loggingEvent.Properties["Two Words"] = "Three words here";
             logger.Logger.Log(loggingEvent);
+
+            var forEachTask = Task.Factory.StartNew(() => {
+                Parallel.For(0, 10, i => {
+                    logger.ErrorFormat("Error Loop #{0}.", i);
+                });
+
+                Console.WriteLine("Loop launched.");
+            });
+
+            Task.WaitAll(forEachTask);
+            Console.WriteLine("Wait complete.");
 
             Console.ReadKey();
         }

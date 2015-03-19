@@ -1,16 +1,15 @@
-﻿using log4net.Appender;
+﻿using System;
+using log4net.Appender;
 using log4net.Core;
 
-namespace Log4Netly 
-{
-    public class LogglyAppender : AppenderSkeleton
-    {
+namespace Log4Netly {
+    public class LogglyAppender : AppenderSkeleton {
         private string _url;
 
         private readonly LoggingEventSerializer _serializer = new LoggingEventSerializer();
         private readonly AsyncHttpClientWrapper _client = new AsyncHttpClientWrapper();
         private readonly EndpointFactory _endpointFactory = new EndpointFactory();
-        
+
         /// <summary>
         /// Loggly host for submitting log events.
         /// </summary>
@@ -27,18 +26,23 @@ namespace Log4Netly
         /// https://www.loggly.com/docs/tags/
         /// </summary>
         public string Tags { get; set; }
-        
-        public override void ActivateOptions()
-        {
+
+        public override void ActivateOptions() {
             _url = _endpointFactory.BuildSingleMessageEndpoint(Endpoint, Token, Tags);
 
             base.ActivateOptions();
         }
 
-        protected override void Append(LoggingEvent loggingEvent)
-        {
-            var content = _serializer.SerializeLoggingEvents(new[] { loggingEvent });
-            _client.Post(_url, content);
+        protected override void Append(LoggingEvent loggingEvent) {
+            try {
+                var content = _serializer.SerializeLoggingEvents(new[] { loggingEvent });
+                _client.Post(_url, content, ErrorHandler);
+
+            } catch (Exception ex) {
+                if (ErrorHandler != null) {
+                    ErrorHandler.Error("Could not append.", ex);
+                }
+            }
         }
     }
 }

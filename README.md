@@ -25,7 +25,9 @@ Simple, asynchronous [Loggly](https://www.loggly.com) log4net appender. Find the
   }
 }
 ```
+
 For light usage, you can use the regular appender:
+
 ```xml
 <appender name="LogglyAppender" type="Log4Netly.LogglyAppender, Log4Netly">
   <endpoint value="https://logs-01.loggly.com/" />
@@ -33,7 +35,9 @@ For light usage, you can use the regular appender:
   <tags value="tag1,tag2,tag3" /><!-- One or more tags -->
 </appender>
 ```
+
 For heavy usage, to reduce the chance of TCP port exhaustion, use the buffered appender:
+
 ```xml
 <appender name="BufferedLogglyAppender" type="Log4Netly.BufferedLogglyAppender, Log4Netly">
   <endpoint value="https://logs-01.loggly.com/"/>
@@ -43,3 +47,5 @@ For heavy usage, to reduce the chance of TCP port exhaustion, use the buffered a
   <intervalInMs value="2500" />
 </appender>
 ```
+
+Both buffers include basic support for log4net's [ErrorHandler](http://stackoverflow.com/a/1606324/90227). An example is provided in the Log4NetlyTesting project.

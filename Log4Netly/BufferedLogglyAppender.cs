@@ -1,11 +1,10 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using log4net.Appender;
 using log4net.Core;
 
-namespace Log4Netly
-{
-    public class BufferedLogglyAppender : BufferingAppenderSkeleton
-    {
+namespace Log4Netly {
+    public class BufferedLogglyAppender : BufferingAppenderSkeleton {
         private string _url;
         private const int DefaultIntervalInMs = 2500;
 
@@ -13,7 +12,7 @@ namespace Log4Netly
         private readonly LoggingEventSerializer _serializer = new LoggingEventSerializer();
         private readonly AsyncHttpClientWrapper _client = new AsyncHttpClientWrapper();
         private readonly EndpointFactory _endpointFactory = new EndpointFactory();
-        
+
         /// <summary>
         /// Loggly host for submitting log events.
         /// </summary>
@@ -32,9 +31,8 @@ namespace Log4Netly
         public string Tags { get; set; }
 
         public int IntervalInMs { get; set; }
-        
-        public override void ActivateOptions()
-        {
+
+        public override void ActivateOptions() {
             var intervalInMs = IntervalInMs > 0 ? IntervalInMs : DefaultIntervalInMs;
             new TimerScheduler(intervalInMs).Execute(ProcessBufferedMessages);
 
@@ -45,25 +43,29 @@ namespace Log4Netly
             base.ActivateOptions();
         }
 
-        private void ProcessBufferedMessages()
-        {
-            if (Monitor.TryEnter(_isCurrentlySendingLockObject))
-            {
-                try
-                {
+        private void ProcessBufferedMessages() {
+            if (Monitor.TryEnter(_isCurrentlySendingLockObject)) {
+                try {
                     Flush();
-                }
-                finally
-                {
+                } catch (Exception ex) {
+                    if (ErrorHandler != null) {
+                        ErrorHandler.Error("Could not flush buffered events.", ex);
+                    }
+                } finally {
                     Monitor.Exit(_isCurrentlySendingLockObject);
                 }
             }
         }
 
-        protected override void SendBuffer(LoggingEvent[] loggingEvent)
-        {
-            var content = _serializer.SerializeLoggingEvents(loggingEvent);
-            _client.Post(_url, content);
+        protected override void SendBuffer(LoggingEvent[] loggingEvent) {
+            try {
+                var content = _serializer.SerializeLoggingEvents(loggingEvent);
+                _client.Post(_url, content, ErrorHandler);
+            } catch (Exception ex) {
+                if (ErrorHandler != null) {
+                    ErrorHandler.Error("Could not send buffer.", ex);
+                }
+            }
         }
     }
 }
