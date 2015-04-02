@@ -7,7 +7,7 @@ namespace Log4Netly {
         private readonly HttpClient _httpClient = new HttpClient();
 
         internal void Post(string url, string content, log4net.Core.IErrorHandler errorHandler = null) {
-            _httpClient.PostAsync("https://"+url, new StringContent(content))
+            _httpClient.PostAsync(url, new StringContent(content))
                         .ContinueWith(t => Continuer(t, errorHandler), TaskContinuationOptions.OnlyOnFaulted);
         }
 
